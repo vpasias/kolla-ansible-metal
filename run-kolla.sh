@@ -5,44 +5,61 @@ export LC_CTYPE="UTF-8",
 export LANG="en_US.UTF-8"
 
 # ---- PART ONE ------
-# Configure SSH connectivity from 'deployment' to Target Hosts
+# Configure SSH connectivity from 'deployment' - server101 to Target Hosts 
 
 #echo 'run-kolla.sh: Cleaning directory /home/openstack/.ssh/'
-#rm -f /home/openstack/.ssh/known_hosts
-#rm -f /home/openstack/.ssh/id_rsa
-#rm -f /home/openstack/.ssh/id_rsa.pub
+#rm -f /home/vagrant/.ssh/known_hosts
+#rm -f /home/vagrant/.ssh/id_rsa
+#rm -f /home/vagrant/.ssh/id_rsa.pub
 
 #echo 'run-kolla.sh: Running ssh-keygen -t rsa'
 #ssh-keygen -t rsa
 
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server201 - Controller 1'
-ssh-copy-id vagrant@server201
+sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server201
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server301 - Controller 2'
-ssh-copy-id vagrant@server301
+sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server301
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server401 - Controller 3'
-ssh-copy-id vagrant@server401
+sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server401
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server203 - Compute 1'
-ssh-copy-id vagrant@server203
+sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server203
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server303 - Compute 2'
-ssh-copy-id vagrant@server303
+sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server303
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server403 - Compute 3'
-ssh-copy-id vagrant@server403
+sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server403
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server103 - Monitor 1'
-ssh-copy-id vagrant@server103
+sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server103
 
-echo 'run-kolla.sh: Running scp controller_setup.sh openstack@controller1:/home/openstack/controller_setup.sh'
-scp controller_setup.sh openstack@controller1:/home/openstack/controller_setup.sh
-echo 'run-kolla.sh: Running scp controller_setup.sh openstack@controller2:/home/openstack/controller_setup.sh'
-scp controller_setup.sh openstack@controller2:/home/openstack/controller_setup.sh
-echo 'run-kolla.sh: Running scp compute_setup.sh openstack@compute001:/home/openstack/compute_setup.sh'
-scp compute_setup.sh openstack@compute001:/home/openstack/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server201:/home/vagrant/controller_setup.sh'
+scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server201:/home/vagrant/controller_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server301:/home/vagrant/controller_setup.sh'
+scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server301:/home/vagrant/controller_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server401:/home/vagrant/controller_setup.sh'
+scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server401:/home/vagrant/controller_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server203:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=nocompute_setup.sh vagrant@server203:/home/vagrant/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server303:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server303:/home/vagrant/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server403:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server403:/home/vagrant/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server103:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server103:/home/vagrant/compute_setup.sh
 
-echo 'run-kolla.sh: Running ssh openstack@controller1 "sudo bash /home/openstack/controller_setup.sh"'
-ssh openstack@controller1 "sudo bash /home/openstack/controller_setup.sh"
-echo 'run-kolla.sh: Running ssh openstack@controller2 "sudo bash /home/openstack/controller_setup.sh"'
-ssh openstack@controller2 "sudo bash /home/openstack/controller_setup.sh"
-echo 'run-kolla.sh: Running ssh openstack@compute001 “sudo bash /home/openstack/compute_setup.sh”'
-ssh openstack@compute001 "sudo bash /home/openstack/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server201 "sudo bash /home/vagrant/controller_setup.sh"'
+ssh -o StrictHostKeyChecking=no vagrant@server201 "sudo bash /home/vagrant/controller_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server301 "sudo bash /home/vagrant/controller_setup.sh"'
+ssh -o StrictHostKeyChecking=no vagrant@server301 "sudo bash /home/vagrant/controller_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server401 "sudo bash /home/vagrant/controller_setup.sh"'
+ssh -o StrictHostKeyChecking=no vagrant@server401 "sudo bash /home/vagrant/controller_setup.sh"
+
+echo 'run-kolla.sh: Running ssh vagrant@server203 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server203 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server303 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server303 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server403 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server403 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server103 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server103 "sudo bash /home/vagrant/compute_setup.sh"
 
 # ---- PART TWO ----
 # Install Ansible and Kolla-Ansible

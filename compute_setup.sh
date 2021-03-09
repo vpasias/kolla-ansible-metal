@@ -1,7 +1,7 @@
 #! /bin/sh
 
 DEBIAN_FRONTEND=noninteractive apt update
-DEBIAN_FRONTEND=noninteractive apt install -y python python-simplejson
+DEBIAN_FRONTEND=noninteractive apt install -y python python-simplejson python3 python3-simplejson
 DEBIAN_FRONTEND=noninteractive apt install -y qemu-kvm
 
 echo "configfs" >> /etc/modules

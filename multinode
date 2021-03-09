@@ -1,62 +1,43 @@
+
+server201 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server301 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server401 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
 [control]
 # These hostname must be resolvable from your deployment host
-#
-# kris-at-occ: This inventory file assumes following controller node naming convention:
-# kris-at-occ:   word controller followed by 1 digit node number, for example controller2
-# kris-at-occ: This inventory file installs controller containers on 2 nodes: controller1 & controller2
-# kris-at-occ: If you want 3 or more controller set up, edit line below: controller[1:3]....
-#
-controller[1:2] ansible_ssh_user=openstack ansible_become=True ansible_private_key_file=/home/openstack/.ssh/id_rsa
+server201 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server301 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server401 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
 
 # The network nodes are where your l3-agent and loadbalancers will run
 # This can be the same as a host in the control group
-#
-# kris-at-occ: This inventory file installs network containers on 2 controller nodes: controller1 & controller2
-# kris-at-occ: If you want 3 or more controller set up, edit line below: controller[1:3]....
-#
 [network]
-controller[1:2] ansible_ssh_user=openstack ansible_become=True ansible_private_key_file=/home/openstack/.ssh/id_rsa
+server201 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server301 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server401 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
-#
-# kris-at-occ: This inventory file installs assumes all compute nodes to be directly connected to provider flat network
-# kris-at-occ: If you want some compute nodes to be "inner compute", add them below
-#
-[inner-compute]
-
-#
-# kris-at-occ: This inventory file assumes following compute node naming convention:
-# kris-at-occ:   word compute followed by 3 digit node number, for example compute873
-# kris-at-occ: This inventory file installs one compute node: compute001
-# kris-at-occ: If you want more compute nodes, edit the line below: for example compute[001:012]
-#
-[external-compute]
-compute[001:001] ansible_ssh_user=openstack ansible_become=True ansible_private_key_file=/home/openstack/.ssh/id_rsa
-
-[compute:children]
-inner-compute
-external-compute
+[compute]
+server203 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server303 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server403 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 [monitoring]
-controller1 ansible_ssh_user=openstack ansible_become=True ansible_private_key_file=/home/openstack/.ssh/id_rsa
+server103 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 # When compute nodes and control nodes use different interfaces,
-# you can specify "api_interface" and other interfaces like below:
+# you need to comment out "api_interface" and other interfaces from the globals.yml
+# and specify like below:
 #compute01 neutron_external_interface=eth0 api_interface=em1 storage_interface=em1 tunnel_interface=em1
 
-#
-# kris-at-occ: kolla-bare-metal installs storage node with LVM backend (defined in globals.yml),
-# kris-at-occ:   this is good for demonstration only
-# kris-at-occ: For production deployment use other, more robust backend (Ceph, NetApp, etc.)
-# kris-at-occ:   edit storage section below and globals.yml
-# kris-at-occ: This inventory file installs storage backend containers on first compute node, i.e. compute001
-#
 [storage]
-compute001 ansible_ssh_user=openstack ansible_become=True ansible_private_key_file=/home/openstack/.ssh/id_rsa
+server203 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server303 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server403 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 [deployment]
 localhost       ansible_connection=local
@@ -68,8 +49,19 @@ compute
 storage
 monitoring
 
+[tls-backend:children]
+control
+
 # You can explicitly specify which hosts run each project by updating the
 # groups in the sections below. Common services are grouped together.
+
+[common:children]
+control
+network
+compute
+storage
+monitoring
+
 [chrony-server:children]
 haproxy
 
@@ -88,12 +80,14 @@ monitoring
 
 [etcd:children]
 control
-compute
 
 [influxdb:children]
 monitoring
 
-[karbor:children]
+[prometheus:children]
+monitoring
+
+[kafka:children]
 control
 
 [kibana:children]
@@ -112,16 +106,6 @@ control
 [haproxy:children]
 network
 
-[hyperv]
-#hyperv_host
-
-[hyperv:vars]
-#ansible_user=user
-#ansible_password=password
-#ansible_port=5986
-#ansible_connection=winrm
-#ansible_winrm_server_cert_validation=ignore
-
 [mariadb:children]
 control
 
@@ -134,8 +118,18 @@ control
 [qdrouterd:children]
 control
 
-[mongodb:children]
+[monasca-agent:children]
+compute
 control
+monitoring
+network
+storage
+
+[monasca:children]
+monitoring
+
+[storm:children]
+monitoring
 
 [keystone:children]
 control
@@ -153,9 +147,6 @@ network
 network
 compute
 manila-share
-
-[opendaylight:children]
-network
 
 [cinder:children]
 control
@@ -190,9 +181,6 @@ control
 [ironic:children]
 control
 
-[ceph:children]
-control
-
 [magnum:children]
 control
 
@@ -211,8 +199,9 @@ control
 [aodh:children]
 control
 
-[congress:children]
+[cyborg:children]
 control
+compute
 
 [panko:children]
 control
@@ -236,13 +225,13 @@ control
 [vmtp:children]
 control
 
+[vitrage:children]
+control
+
 [watcher:children]
 control
 
 [rally:children]
-control
-
-[searchlight:children]
 control
 
 [octavia:children]
@@ -257,6 +246,9 @@ control
 [bifrost:children]
 deployment
 
+[zookeeper:children]
+control
+
 [zun:children]
 control
 
@@ -266,6 +258,9 @@ monitoring
 [redis:children]
 control
 
+[blazar:children]
+control
+
 # Additional control implemented here. These groups allow you to control which
 # services run on which hosts at a per-service level.
 #
@@ -273,11 +268,25 @@ control
 # function appropriately. For example, neutron-metadata-agent must run on the
 # same host as the l3-agent and (depending on configuration) the dhcp-agent.
 
+# Common
+[cron:children]
+common
+
+[fluentd:children]
+common
+
+[kolla-logs:children]
+common
+
+[kolla-toolbox:children]
+common
+
+# Elasticsearch Curator
+[elasticsearch-curator:children]
+elasticsearch
+
 # Glance
 [glance-api:children]
-glance
-
-[glance-registry:children]
 glance
 
 # Nova
@@ -287,7 +296,7 @@ nova
 [nova-conductor:children]
 nova
 
-[nova-consoleauth:children]
+[nova-super-conductor:children]
 nova
 
 [nova-novncproxy:children]
@@ -315,27 +324,23 @@ neutron
 [neutron-l3-agent:children]
 neutron
 
-[neutron-lbaas-agent:children]
-neutron
-
 [neutron-metadata-agent:children]
 neutron
 
-[neutron-vpnaas-agent:children]
-neutron
+[neutron-ovn-metadata-agent:children]
+compute
 
 [neutron-bgp-dragent:children]
 neutron
 
-# Ceph
-[ceph-mon:children]
-ceph
+[neutron-infoblox-ipam-agent:children]
+neutron
 
-[ceph-rgw:children]
-ceph
+[neutron-metering-agent:children]
+neutron
 
-[ceph-osd:children]
-storage
+[ironic-neutron-agent:children]
+neutron
 
 # Cinder
 [cinder-api:children]
@@ -361,24 +366,17 @@ cloudkitty
 [freezer-api:children]
 freezer
 
+[freezer-scheduler:children]
+freezer
+
 # iSCSI
 [iscsid:children]
 compute
 storage
-ironic-conductor
+ironic
 
 [tgtd:children]
 storage
-
-# Karbor
-[karbor-api:children]
-karbor
-
-[karbor-protection:children]
-karbor
-
-[karbor-operationengine:children]
-karbor
 
 # Manila
 [manila-api:children]
@@ -433,6 +431,47 @@ murano
 [murano-engine:children]
 murano
 
+# Monasca
+[monasca-agent-collector:children]
+monasca-agent
+
+[monasca-agent-forwarder:children]
+monasca-agent
+
+[monasca-agent-statsd:children]
+monasca-agent
+
+[monasca-api:children]
+monasca
+
+[monasca-grafana:children]
+monasca
+
+[monasca-log-transformer:children]
+monasca
+
+[monasca-log-persister:children]
+monasca
+
+[monasca-log-metrics:children]
+monasca
+
+[monasca-thresh:children]
+monasca
+
+[monasca-notification:children]
+monasca
+
+[monasca-persister:children]
+monasca
+
+# Storm
+[storm-worker:children]
+storm
+
+[storm-nimbus:children]
+storm
+
 # Ironic
 [ironic-api:children]
 ironic
@@ -444,6 +483,9 @@ ironic
 ironic
 
 [ironic-pxe:children]
+ironic
+
+[ironic-ipxe:children]
 ironic
 
 # Magnum
@@ -473,6 +515,12 @@ solum
 [solum-conductor:children]
 solum
 
+[solum-application-deployment:children]
+solum
+
+[solum-image-builder:children]
+solum
+
 # Mistral
 [mistral-api:children]
 mistral
@@ -483,20 +531,20 @@ mistral
 [mistral-engine:children]
 mistral
 
-# Ceilometer
-[ceilometer-api:children]
-ceilometer
+[mistral-event-engine:children]
+mistral
 
+# Ceilometer
 [ceilometer-central:children]
 ceilometer
 
 [ceilometer-notification:children]
 ceilometer
 
-[ceilometer-collector:children]
-ceilometer
-
 [ceilometer-compute:children]
+compute
+
+[ceilometer-ipmi:children]
 compute
 
 # Aodh
@@ -512,15 +560,15 @@ aodh
 [aodh-notifier:children]
 aodh
 
-# Congress
-[congress-api:children]
-congress
+# Cyborg
+[cyborg-api:children]
+cyborg
 
-[congress-datasource:children]
-congress
+[cyborg-agent:children]
+compute
 
-[congress-policy-engine:children]
-congress
+[cyborg-conductor:children]
+cyborg
 
 # Panko
 [panko-api:children]
@@ -549,6 +597,7 @@ trove
 # Multipathd
 [multipathd:children]
 compute
+storage
 
 # Watcher
 [watcher-api:children]
@@ -564,15 +613,14 @@ watcher
 [senlin-api:children]
 senlin
 
+[senlin-conductor:children]
+senlin
+
 [senlin-engine:children]
 senlin
 
-# Searchlight
-[searchlight-api:children]
-searchlight
-
-[searchlight-listener:children]
-searchlight
+[senlin-health-manager:children]
+senlin
 
 # Octavia
 [octavia-api:children]
@@ -592,6 +640,9 @@ octavia
 designate
 
 [designate-central:children]
+designate
+
+[designate-producer:children]
 designate
 
 [designate-mdns:children]
@@ -614,7 +665,13 @@ placement
 [zun-api:children]
 zun
 
+[zun-wsproxy:children]
+zun
+
 [zun-compute:children]
+compute
+
+[zun-cni-daemon:children]
 compute
 
 # Skydive
@@ -631,3 +688,93 @@ tacker
 
 [tacker-conductor:children]
 tacker
+
+# Vitrage
+[vitrage-api:children]
+vitrage
+
+[vitrage-notifier:children]
+vitrage
+
+[vitrage-graph:children]
+vitrage
+
+[vitrage-ml:children]
+vitrage
+
+[vitrage-persistor:children]
+vitrage
+
+# Blazar
+[blazar-api:children]
+blazar
+
+[blazar-manager:children]
+blazar
+
+# Prometheus
+[prometheus-node-exporter:children]
+monitoring
+control
+compute
+network
+storage
+
+[prometheus-mysqld-exporter:children]
+mariadb
+
+[prometheus-haproxy-exporter:children]
+haproxy
+
+[prometheus-memcached-exporter:children]
+memcached
+
+[prometheus-cadvisor:children]
+monitoring
+control
+compute
+network
+storage
+
+[prometheus-alertmanager:children]
+monitoring
+
+[prometheus-openstack-exporter:children]
+monitoring
+
+[prometheus-elasticsearch-exporter:children]
+elasticsearch
+
+[prometheus-blackbox-exporter:children]
+monitoring
+
+[masakari-api:children]
+control
+
+[masakari-engine:children]
+control
+
+[masakari-monitors:children]
+compute
+
+[ovn-controller:children]
+ovn-controller-compute
+ovn-controller-network
+
+[ovn-controller-compute:children]
+compute
+
+[ovn-controller-network:children]
+network
+
+[ovn-database:children]
+control
+
+[ovn-northd:children]
+ovn-database
+
+[ovn-nb-db:children]
+ovn-database
+
+[ovn-sb-db:children]
+ovn-database

@@ -65,6 +65,7 @@ ssh -o StrictHostKeyChecking=no vagrant@server103 "sudo bash /home/vagrant/compu
 # Install Ansible and Kolla-Ansible
 
 echo 'run-kolla.sh: Running sudo pip install ansible<2.10'
+sudo pip3 install --upgrade pip
 sudo pip install -U 'ansible<2.10'
 
 if [ $? -ne 0 ]; then
@@ -72,8 +73,8 @@ if [ $? -ne 0 ]; then
   exit $?
 fi
 
-echo 'run-kolla.sh: Running sudo pip install kolla-ansible==6.2.1'
-sudo pip install kolla-ansible==6.2.1
+echo 'run-kolla.sh: Running sudo pip install kolla-ansible'
+sudo pip install kolla-ansible
 
 if [ $? -ne 0 ]; then
   echo "Cannot install kolla-ansible"
@@ -126,8 +127,8 @@ sudo kolla-ansible post-deploy
 # ---- PART FIVE ----
 # Install OpenStack Client and "populate" OpenStack Deployment with Image, Flavors & Networks
 
-echo 'run-kolla.sh: Running sudo pip install python-openstackclient'
-sudo pip install python-openstackclient
+echo 'run-kolla.sh: Running sudo pip install python3-openstackclient'
+sudo pip install python3-openstackclient
 
 echo 'run-kolla.sh: Running sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce'
 sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce
@@ -138,5 +139,5 @@ cat <<-EOF | sudo su
 . /etc/kolla/admin-openrc.sh
 ./init-runonce
 EOF
-echo "Horizon available at 10.0.0.10, user 'admin', password below:"
+echo "Horizon available at 172.16.0.250, user 'admin', password below:"
 grep keystone_admin_password /etc/kolla/passwords.yml

@@ -7,20 +7,28 @@ export LANG="en_US.UTF-8"
 # ---- PART ONE ------
 # Configure SSH connectivity from 'deployment' to Target Hosts
 
-echo 'run-kolla.sh: Cleaning directory /home/openstack/.ssh/'
-rm -f /home/openstack/.ssh/known_hosts
-rm -f /home/openstack/.ssh/id_rsa
-rm -f /home/openstack/.ssh/id_rsa.pub
+#echo 'run-kolla.sh: Cleaning directory /home/openstack/.ssh/'
+#rm -f /home/openstack/.ssh/known_hosts
+#rm -f /home/openstack/.ssh/id_rsa
+#rm -f /home/openstack/.ssh/id_rsa.pub
 
-echo 'run-kolla.sh: Running ssh-keygen -t rsa'
-ssh-keygen -t rsa
+#echo 'run-kolla.sh: Running ssh-keygen -t rsa'
+#ssh-keygen -t rsa
 
-echo 'run-kolla.sh: Running ssh-copy-id openstack@controller1'
-ssh-copy-id openstack@controller1
-echo 'run-kolla.sh: Running ssh-copy-id openstack@controller2'
-ssh-copy-id openstack@controller2
-echo 'run-kolla.sh: Running ssh-copy-id openstack@compute001'
-ssh-copy-id openstack@compute001
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server201 - Controller 1'
+ssh-copy-id vagrant@server201
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server301 - Controller 2'
+ssh-copy-id vagrant@server301
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server401 - Controller 3'
+ssh-copy-id vagrant@server401
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server203 - Compute 1'
+ssh-copy-id vagrant@server203
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server303 - Compute 2'
+ssh-copy-id vagrant@server303
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server403 - Compute 3'
+ssh-copy-id vagrant@server403
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server103 - Monitor 1'
+ssh-copy-id vagrant@server103
 
 echo 'run-kolla.sh: Running scp controller_setup.sh openstack@controller1:/home/openstack/controller_setup.sh'
 scp controller_setup.sh openstack@controller1:/home/openstack/controller_setup.sh

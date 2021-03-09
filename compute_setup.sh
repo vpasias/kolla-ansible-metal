@@ -13,11 +13,11 @@ systemctl disable open-iscsi
 systemctl stop iscsid
 systemctl disable iscsid
 
-echo "root:gprm8350" | chpasswd
+echo "root:gprm8350" | sudo chpasswd
 
 chmod -x /etc/update-motd.d/*
 
-cat << EOF | tee /etc/update-motd.d/01-custom
+cat << EOF | sudo tee /etc/update-motd.d/01-custom
 #!/bin/sh
 echo "****************************WARNING****************************************
 UNAUTHORISED ACCESS IS PROHIBITED. VIOLATORS WILL BE PROSECUTED.
@@ -26,7 +26,7 @@ EOF
 
 chmod +x /etc/update-motd.d/01-custom
 
-cat << EOF | tee /etc/modprobe.d/qemu-system-x86.conf
+cat << EOF | sudo tee /etc/modprobe.d/qemu-system-x86.conf
 options kvm_intel nested=1
 EOF
 

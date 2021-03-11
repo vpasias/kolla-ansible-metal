@@ -143,8 +143,8 @@ sudo kolla-ansible post-deploy
 # ---- PART FIVE ----
 # Install OpenStack Client and "populate" OpenStack Deployment with Image, Flavors & Networks
 
-echo 'run-kolla.sh: Running sudo pip install python3-openstackclient'
-sudo pip install python3-openstackclient
+echo 'run-kolla.sh: Running sudo apt install python3-openstackclient'
+sudo apt install python3-openstackclient -y
 
 echo 'run-kolla.sh: Running sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce'
 sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce

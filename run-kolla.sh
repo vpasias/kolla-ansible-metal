@@ -100,6 +100,7 @@ sudo cp globals.yml /etc/kolla
 # Run Kolla-Ansible Playbooks
 
 export ANSIBLE_HOST_KEY_CHECKING=False
+export ANSIBLE_LOG_PATH=ansible.log
 
 echo 'run-kolla.sh: Running sudo kolla-genpwd'
 sudo kolla-genpwd

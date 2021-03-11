@@ -64,7 +64,6 @@ ssh -o StrictHostKeyChecking=no vagrant@server403 "sudo bash /home/vagrant/compu
 echo 'run-kolla.sh: Running ssh vagrant@server103 “sudo bash /home/vagrant/compute_setup.sh”'
 ssh -o StrictHostKeyChecking=no vagrant@server103 "sudo bash /home/vagrant/compute_setup.sh"
 
-
 ssh -o StrictHostKeyChecking=no vagrant@server203 "sudo pvcreate /dev/vdb && sudo vgcreate cinder-volumes /dev/vdb"
 ssh -o StrictHostKeyChecking=no vagrant@server303 "sudo pvcreate /dev/vdb && sudo vgcreate cinder-volumes /dev/vdb"
 ssh -o StrictHostKeyChecking=no vagrant@server403 "sudo pvcreate /dev/vdb && sudo vgcreate cinder-volumes /dev/vdb"

@@ -18,8 +18,6 @@ ssh-keygen -q -t rsa -N "" -f /home/vagrant/.ssh/id_rsa
 echo 'run-kolla.sh: Install sshpass'
 sudo apt-get install sshpass -y
 
-sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server101
-
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server201 - Controller 1'
 sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server201
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server301 - Controller 2'
@@ -68,6 +66,8 @@ ssh -o StrictHostKeyChecking=no vagrant@server103 "sudo bash /home/vagrant/compu
 
 # ---- PART TWO ----
 # Install Ansible and Kolla-Ansible
+
+sudo bash controller_setup.sh
 
 echo 'run-kolla.sh: Running sudo pip install ansible<2.10'
 sudo pip3 install --upgrade pip

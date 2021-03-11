@@ -68,6 +68,10 @@ ssh -o StrictHostKeyChecking=no vagrant@server203 "sudo pvcreate /dev/sda && sud
 ssh -o StrictHostKeyChecking=no vagrant@server303 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
 ssh -o StrictHostKeyChecking=no vagrant@server403 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
 
+ssh -o StrictHostKeyChecking=no vagrant@server203 "lsblk && sudo vgs"
+ssh -o StrictHostKeyChecking=no vagrant@server303 "lsblk && sudo vgs"
+ssh -o StrictHostKeyChecking=no vagrant@server403 "lsblk && sudo vgs"
+
 # ---- PART TWO ----
 # Install Ansible and Kolla-Ansible
 

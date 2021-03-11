@@ -69,7 +69,7 @@ ssh -o StrictHostKeyChecking=no vagrant@server103 "sudo bash /home/vagrant/compu
 
 sudo bash controller_setup.sh
 
-sudo apt update -y && sudo apt install python3-dev libffi-dev gcc libssl-dev python3-venv python3-pip
+sudo apt update -y && sudo apt install python3-dev libffi-dev gcc libssl-dev python3-venv python3-pip -y
 
 echo 'run-kolla.sh: Running sudo pip install ansible<2.10'
 sudo pip3 install --upgrade pip

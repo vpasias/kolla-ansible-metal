@@ -13,7 +13,7 @@ rm -f /home/vagrant/.ssh/id_rsa
 rm -f /home/vagrant/.ssh/id_rsa.pub
 
 echo 'run-kolla.sh: Running ssh-keygen -t rsa'
-ssh-keygen -q -t rsa -N "" -f .ssh/id_rsa
+ssh-keygen -q -t rsa -N "" -f /home/vagrant/.ssh/id_rsa
 
 echo 'run-kolla.sh: Install sshpass'
 sudo apt-get install sshpass -y

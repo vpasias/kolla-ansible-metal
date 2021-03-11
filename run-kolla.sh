@@ -7,13 +7,13 @@ export LANG="en_US.UTF-8"
 # ---- PART ONE ------
 # Configure SSH connectivity from 'deployment' - server101 to Target Hosts 
 
-#echo 'run-kolla.sh: Cleaning directory /home/openstack/.ssh/'
-#rm -f /home/vagrant/.ssh/known_hosts
-#rm -f /home/vagrant/.ssh/id_rsa
-#rm -f /home/vagrant/.ssh/id_rsa.pub
+echo 'run-kolla.sh: Cleaning directory /home/vagrant/.ssh/'
+rm -f /home/vagrant/.ssh/known_hosts
+rm -f /home/vagrant/.ssh/id_rsa
+rm -f /home/vagrant/.ssh/id_rsa.pub
 
-#echo 'run-kolla.sh: Running ssh-keygen -t rsa'
-#ssh-keygen -t rsa
+echo 'run-kolla.sh: Running ssh-keygen -t rsa'
+ssh-keygen -q -t rsa -N "" -f .ssh/id_rsa
 
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server201 - Controller 1'
 sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server201

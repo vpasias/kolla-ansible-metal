@@ -40,7 +40,7 @@ scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server301:/home/vagr
 echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server401:/home/vagrant/controller_setup.sh'
 scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server401:/home/vagrant/controller_setup.sh
 echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server203:/home/vagrant/compute_setup.sh'
-scp -o StrictHostKeyChecking=nocompute_setup.sh vagrant@server203:/home/vagrant/compute_setup.sh
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server203:/home/vagrant/compute_setup.sh
 echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server303:/home/vagrant/compute_setup.sh'
 scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server303:/home/vagrant/compute_setup.sh
 echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server403:/home/vagrant/compute_setup.sh'

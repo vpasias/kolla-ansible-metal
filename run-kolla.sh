@@ -144,12 +144,12 @@ sudo pip install python3-openstackclient
 
 echo 'run-kolla.sh: Running sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce'
 sudo cp init-runonce /usr/local/share/kolla-ansible/init-runonce
-echo 'run-kolla.sh: Running cd /usr/local/share/kolla-ansible'
-cd /usr/local/share/kolla-ansible
-echo 'run-kolla.sh: Running sudo ./init-runonce'
-cat <<-EOF | sudo su
-. /etc/kolla/admin-openrc.sh
-./init-runonce
-EOF
+#echo 'run-kolla.sh: Running cd /usr/local/share/kolla-ansible'
+#cd /usr/local/share/kolla-ansible
+#echo 'run-kolla.sh: Running sudo ./init-runonce'
+#cat <<-EOF | sudo su
+#. /etc/kolla/admin-openrc.sh
+#./init-runonce
+#EOF
 echo "Horizon available at 172.16.1.250, user 'admin', password below:"
 grep keystone_admin_password /etc/kolla/passwords.yml

@@ -18,6 +18,8 @@ ssh-keygen -q -t rsa -N "" -f /home/vagrant/.ssh/id_rsa
 echo 'run-kolla.sh: Install sshpass'
 sudo apt-get install sshpass -y
 
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server101
+
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server201 - Controller 1'
 sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server201
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server301 - Controller 2'

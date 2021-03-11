@@ -19,19 +19,19 @@ echo 'run-kolla.sh: Install sshpass'
 sudo apt-get install sshpass -y
 
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server201 - Controller 1'
-sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server201
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server201
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server301 - Controller 2'
-sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server301
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server301
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server401 - Controller 3'
-sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server401
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server401
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server203 - Compute 1'
-sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server203
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server203
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server303 - Compute 2'
-sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server303
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server303
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server403 - Compute 3'
-sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server403
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server403
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server103 - Monitor 1'
-sshpass -p 'vagrant' ssh-copy-id -o StrictHostKeyChecking=no vagrant@server103
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server103
 
 echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server201:/home/vagrant/controller_setup.sh'
 scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server201:/home/vagrant/controller_setup.sh

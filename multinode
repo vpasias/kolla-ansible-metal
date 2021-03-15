@@ -2,9 +2,9 @@
 # additional groups are for more control of the environment.
 [control]
 # These hostname must be resolvable from your deployment host
-server201 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
-server301 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
-server401 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server101 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server102 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server103 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
@@ -12,16 +12,18 @@ server401 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=
 # The network nodes are where your l3-agent and loadbalancers will run
 # This can be the same as a host in the control group
 [network]
-server201 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
-server301 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
-server401 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server101 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server102 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server103 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 [compute]
-server203 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server301 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server302 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 server303 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
-server403 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 [monitoring]
+server101 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server102 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 server103 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 # When compute nodes and control nodes use different interfaces,
@@ -30,9 +32,9 @@ server103 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=
 #compute01 neutron_external_interface=eth0 api_interface=em1 storage_interface=em1 tunnel_interface=em1
 
 [storage]
-server203 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
-server303 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
-server403 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server101 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server102 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
+server103 ansible_ssh_user=vagrant ansible_become=True ansible_private_key_file=/home/vagrant/.ssh/id_rsa
 
 [deployment]
 localhost       ansible_connection=local

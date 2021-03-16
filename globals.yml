@@ -279,7 +279,7 @@ enable_cinder: "yes"
 enable_cinder_backup: "no"
 #enable_cinder_backend_hnas_nfs: "no"
 enable_cinder_backend_iscsi: "yes"
-#enable_cinder_backend_lvm: "yes"
+enable_cinder_backend_lvm: "no"
 enable_cinder_backend_nfs: "yes"
 #enable_cinder_backend_zfssa_iscsi: "no"
 #enable_cinder_backend_quobyte: "no"
@@ -498,7 +498,7 @@ glance_backend_file: "yes"
 # Enable / disable Cinder backends
 #cinder_backend_ceph: "no"
 #cinder_backend_vmwarevc_vmdk: "no"
-cinder_volume_group: "cinder-volumes"
+#cinder_volume_group: "cinder-volumes"
 # Valid options are [ '', redis, etcd ]
 #cinder_coordination_backend: "{{ 'redis' if enable_redis|bool else 'etcd' if enable_etcd|bool else '' }}"
 

@@ -104,6 +104,10 @@ sudo cp -r /usr/local/share/kolla-ansible/etc_examples/kolla /etc/kolla
 echo 'run-kolla.sh: Running sudo cp globals.yml /etc/kolla'
 sudo cp globals.yml /etc/kolla
 
+cat << EOF | sudo tee /etc/kolla/config/nfs_shares
+nfs:/sharedvol
+EOF
+
 # ---- PART FOUR ----
 # Run Kolla-Ansible Playbooks
 

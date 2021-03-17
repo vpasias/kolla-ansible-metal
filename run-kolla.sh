@@ -18,59 +18,79 @@ ssh-keygen -q -t rsa -N "" -f /home/vagrant/.ssh/id_rsa
 echo 'run-kolla.sh: Install sshpass'
 sudo apt-get install sshpass -y
 
-echo 'run-kolla.sh: Running ssh-copy-id vagrant@server201 - Controller 1'
-sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server201
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server101 - Controller 1'
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server101
 echo 'run-kolla.sh: Running ssh-copy-id vagrant@server301 - Controller 2'
 sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server301
-echo 'run-kolla.sh: Running ssh-copy-id vagrant@server401 - Controller 3'
-sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server401
-echo 'run-kolla.sh: Running ssh-copy-id vagrant@server203 - Compute 1'
-sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server203
-echo 'run-kolla.sh: Running ssh-copy-id vagrant@server303 - Compute 2'
-sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server303
-echo 'run-kolla.sh: Running ssh-copy-id vagrant@server403 - Compute 3'
-sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server403
-echo 'run-kolla.sh: Running ssh-copy-id vagrant@server103 - Monitor 1'
-sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server103
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server501 - Controller 3'
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server501
 
-echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server201:/home/vagrant/controller_setup.sh'
-scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server201:/home/vagrant/controller_setup.sh
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server102 - Compute 1'
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server102
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server103 - Compute 2'
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server103
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server302 - Compute 3'
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server302
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server303 - Compute 4'
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server303
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server502 - Compute 5'
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server502
+echo 'run-kolla.sh: Running ssh-copy-id vagrant@server503 - Compute 6'
+sshpass -p vagrant ssh-copy-id -o StrictHostKeyChecking=no vagrant@server503
+
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server101:/home/vagrant/controller_setup.sh'
+scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server101:/home/vagrant/controller_setup.sh
 echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server301:/home/vagrant/controller_setup.sh'
 scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server301:/home/vagrant/controller_setup.sh
-echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server401:/home/vagrant/controller_setup.sh'
-scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server401:/home/vagrant/controller_setup.sh
-echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server203:/home/vagrant/compute_setup.sh'
-scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server203:/home/vagrant/compute_setup.sh
-echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server303:/home/vagrant/compute_setup.sh'
-scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server303:/home/vagrant/compute_setup.sh
-echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server403:/home/vagrant/compute_setup.sh'
-scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server403:/home/vagrant/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server501:/home/vagrant/controller_setup.sh'
+scp -o StrictHostKeyChecking=no controller_setup.sh vagrant@server501:/home/vagrant/controller_setup.sh
+
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server102:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server102:/home/vagrant/compute_setup.sh
 echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server103:/home/vagrant/compute_setup.sh'
 scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server103:/home/vagrant/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server302:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server302:/home/vagrant/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server303:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server303:/home/vagrant/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server502:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server502:/home/vagrant/compute_setup.sh
+echo 'run-kolla.sh: Running scp controller_setup.sh vagrant@server503:/home/vagrant/compute_setup.sh'
+scp -o StrictHostKeyChecking=no compute_setup.sh vagrant@server503:/home/vagrant/compute_setup.sh
 
-echo 'run-kolla.sh: Running ssh vagrant@server201 "sudo bash /home/vagrant/controller_setup.sh"'
-ssh -o StrictHostKeyChecking=no vagrant@server201 "sudo bash /home/vagrant/controller_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server101 "sudo bash /home/vagrant/controller_setup.sh"'
+ssh -o StrictHostKeyChecking=no vagrant@server101 "sudo bash /home/vagrant/controller_setup.sh"
 echo 'run-kolla.sh: Running ssh vagrant@server301 "sudo bash /home/vagrant/controller_setup.sh"'
 ssh -o StrictHostKeyChecking=no vagrant@server301 "sudo bash /home/vagrant/controller_setup.sh"
-echo 'run-kolla.sh: Running ssh vagrant@server401 "sudo bash /home/vagrant/controller_setup.sh"'
-ssh -o StrictHostKeyChecking=no vagrant@server401 "sudo bash /home/vagrant/controller_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server501 "sudo bash /home/vagrant/controller_setup.sh"'
+ssh -o StrictHostKeyChecking=no vagrant@server501 "sudo bash /home/vagrant/controller_setup.sh"
 
-echo 'run-kolla.sh: Running ssh vagrant@server203 “sudo bash /home/vagrant/compute_setup.sh”'
-ssh -o StrictHostKeyChecking=no vagrant@server203 "sudo bash /home/vagrant/compute_setup.sh"
-echo 'run-kolla.sh: Running ssh vagrant@server303 “sudo bash /home/vagrant/compute_setup.sh”'
-ssh -o StrictHostKeyChecking=no vagrant@server303 "sudo bash /home/vagrant/compute_setup.sh"
-echo 'run-kolla.sh: Running ssh vagrant@server403 “sudo bash /home/vagrant/compute_setup.sh”'
-ssh -o StrictHostKeyChecking=no vagrant@server403 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server102 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server102 "sudo bash /home/vagrant/compute_setup.sh"
 echo 'run-kolla.sh: Running ssh vagrant@server103 “sudo bash /home/vagrant/compute_setup.sh”'
 ssh -o StrictHostKeyChecking=no vagrant@server103 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server302 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server302 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server303 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server303 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server502 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server502 "sudo bash /home/vagrant/compute_setup.sh"
+echo 'run-kolla.sh: Running ssh vagrant@server503 “sudo bash /home/vagrant/compute_setup.sh”'
+ssh -o StrictHostKeyChecking=no vagrant@server503 "sudo bash /home/vagrant/compute_setup.sh"
 
-ssh -o StrictHostKeyChecking=no vagrant@server203 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
+ssh -o StrictHostKeyChecking=no vagrant@server102 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
+ssh -o StrictHostKeyChecking=no vagrant@server302 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
+ssh -o StrictHostKeyChecking=no vagrant@server502 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
+ssh -o StrictHostKeyChecking=no vagrant@server103 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
 ssh -o StrictHostKeyChecking=no vagrant@server303 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
-ssh -o StrictHostKeyChecking=no vagrant@server403 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
+ssh -o StrictHostKeyChecking=no vagrant@server503 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
 
-ssh -o StrictHostKeyChecking=no vagrant@server203 "lsblk && sudo vgs"
+ssh -o StrictHostKeyChecking=no vagrant@server102 "lsblk && sudo vgs"
+ssh -o StrictHostKeyChecking=no vagrant@server302 "lsblk && sudo vgs"
+ssh -o StrictHostKeyChecking=no vagrant@server502 "lsblk && sudo vgs"
+ssh -o StrictHostKeyChecking=no vagrant@server103 "lsblk && sudo vgs"
 ssh -o StrictHostKeyChecking=no vagrant@server303 "lsblk && sudo vgs"
-ssh -o StrictHostKeyChecking=no vagrant@server403 "lsblk && sudo vgs"
+ssh -o StrictHostKeyChecking=no vagrant@server503 "lsblk && sudo vgs"
 
 # ---- PART TWO ----
 # Install Ansible and Kolla-Ansible

@@ -79,6 +79,7 @@ echo 'run-kolla.sh: Running ssh vagrant@server503 “sudo bash /home/vagrant/com
 ssh -o StrictHostKeyChecking=no vagrant@server503 "sudo bash /home/vagrant/compute_setup.sh"
 
 ssh -o StrictHostKeyChecking=no vagrant@server102 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
+#ssh -o StrictHostKeyChecking=no vagrant@server102 "sudo vgextend cinder-volumes /dev/sdb && sudo lvconvert -m1 /dev/cinder-volumes/lv_data /dev/sdb"
 ssh -o StrictHostKeyChecking=no vagrant@server302 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
 ssh -o StrictHostKeyChecking=no vagrant@server502 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"
 ssh -o StrictHostKeyChecking=no vagrant@server103 "sudo pvcreate /dev/sda && sudo vgcreate cinder-volumes /dev/sda"

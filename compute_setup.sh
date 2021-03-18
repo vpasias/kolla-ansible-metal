@@ -40,6 +40,8 @@ modinfo kvm_intel | grep -i nested
 
 mkdir -p /etc/apt/sources.list.d
 
+#mdadm --create --verbose /dev/md0 --level=1 --raid-devices=2 /dev/sda /dev/sdb
+
 apt update -y
 
 reboot

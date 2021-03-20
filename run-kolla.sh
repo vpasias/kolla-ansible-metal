@@ -96,8 +96,8 @@ ssh -o StrictHostKeyChecking=no vagrant@server503 "lsblk && sudo vgs"
 # ---- PART TWO ----
 # Install Ansible and Kolla-Ansible
 
+sudo bash controller_setup.sh
 sudo bash deployment_setup.sh
-#sudo bash controller_setup.sh
 
 sudo apt update -y && sudo apt install python3-dev libffi-dev gcc libssl-dev python3-venv python3-pip -y
 

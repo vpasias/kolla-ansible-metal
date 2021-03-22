@@ -129,9 +129,15 @@ sudo cp globals.yml /etc/kolla
 
 sudo mkdir -p /etc/kolla/config
 
-cat << EOF | sudo tee /etc/kolla/config/nfs_shares
-nfs:/sharedvol
-EOF
+sudo mkdir -p /etc/kolla/config/cinder
+sudo mkdir -p /etc/kolla/config/cinder/cinder-volume
+sudo mkdir -p /etc/kolla/config/cinder/cinder-backup
+sudo mkdir -p /etc/kolla/config/nova
+sudo mkdir -p /etc/kolla/config/glance
+
+#cat << EOF | sudo tee /etc/kolla/config/nfs_shares
+#nfs:/sharedvol
+#EOF
 
 # ---- PART FOUR ----
 # Run Kolla-Ansible Playbooks

@@ -276,11 +276,11 @@ enable_openstack_core: "yes"
 #enable_central_logging: "no"
 #enable_chrony: "yes"
 enable_cinder: "yes"
-enable_cinder_backup: "no"
+enable_cinder_backup: "yes"
 #enable_cinder_backend_hnas_nfs: "no"
 enable_cinder_backend_iscsi: "yes"
 enable_cinder_backend_lvm: "no"
-enable_cinder_backend_nfs: "yes"
+enable_cinder_backend_nfs: "no"
 #enable_cinder_backend_zfssa_iscsi: "no"
 #enable_cinder_backend_quobyte: "no"
 #enable_cloudkitty: "no"
@@ -413,20 +413,20 @@ enable_openvswitch: "{{ enable_neutron | bool and neutron_plugin_agent != 'linux
 #external_ceph_cephx_enabled: "yes"
 
 # Glance
-#ceph_glance_keyring: "ceph.client.glance.keyring"
-#ceph_glance_user: "glance"
-#ceph_glance_pool_name: "images"
+ceph_glance_keyring: "ceph.client.glance.keyring"
+ceph_glance_user: "glance"
+ceph_glance_pool_name: "images"
 # Cinder
-#ceph_cinder_keyring: "ceph.client.cinder.keyring"
-#ceph_cinder_user: "cinder"
-#ceph_cinder_pool_name: "volumes"
-#ceph_cinder_backup_keyring: "ceph.client.cinder-backup.keyring"
-#ceph_cinder_backup_user: "cinder-backup"
-#ceph_cinder_backup_pool_name: "backups"
+ceph_cinder_keyring: "ceph.client.cinder.keyring"
+ceph_cinder_user: "cinder"
+ceph_cinder_pool_name: "volumes"
+ceph_cinder_backup_keyring: "ceph.client.cinder-backup.keyring"
+ceph_cinder_backup_user: "cinder-backup"
+ceph_cinder_backup_pool_name: "backups"
 # Nova
-#ceph_nova_keyring: "{{ ceph_cinder_keyring }}"
-#ceph_nova_user: "nova"
-#ceph_nova_pool_name: "vms"
+ceph_nova_keyring: "{{ ceph_cinder_keyring }}"
+ceph_nova_user: "nova"
+ceph_nova_pool_name: "vms"
 # Gnocchi
 #ceph_gnocchi_keyring: "ceph.client.gnocchi.keyring"
 #ceph_gnocchi_user: "gnocchi"
@@ -458,8 +458,8 @@ fernet_token_expiry: 86400
 # Glance - Image Options
 ########################
 # Configure image backend.
-#glance_backend_ceph: "no"
-glance_backend_file: "yes"
+glance_backend_ceph: "yes"
+glance_backend_file: "no"
 #glance_backend_swift: "no"
 #glance_backend_vmware: "no"
 #enable_glance_image_cache: "no"
@@ -496,7 +496,7 @@ glance_backend_file: "yes"
 # Cinder - Block Storage Options
 ################################
 # Enable / disable Cinder backends
-#cinder_backend_ceph: "no"
+cinder_backend_ceph: "yes"
 #cinder_backend_vmwarevc_vmdk: "no"
 #cinder_volume_group: "cinder-volumes"
 # Valid options are [ '', redis, etcd ]
@@ -531,7 +531,7 @@ glance_backend_file: "yes"
 ########################
 # Nova - Compute Options
 ########################
-#nova_backend_ceph: "no"
+nova_backend_ceph: "yes"
 
 # Valid options are [ qemu, kvm, vmware ]
 #nova_compute_virt_type: "kvm"

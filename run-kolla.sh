@@ -122,8 +122,8 @@ fi
 # Prepare Deployment Parameter Files
 # See also: https://shreddedbacon.com/post/openstack-kolla/
 
-echo 'run-kolla.sh: Running sudo cp -r /usr/local/share/kolla-ansible/etc_examples/kolla /etc/kolla'
-sudo cp -r /usr/local/share/kolla-ansible/etc_examples/kolla /etc/kolla
+echo 'run-kolla.sh: Running sudo cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/passwords.yml /etc/kolla'
+sudo cp -r /usr/local/share/kolla-ansible/etc_examples/kolla/passwords.yml /etc/kolla
 echo 'run-kolla.sh: Running sudo cp globals.yml /etc/kolla'
 sudo cp globals.yml /etc/kolla
 

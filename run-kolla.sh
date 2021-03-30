@@ -7,6 +7,9 @@ export LANG="en_US.UTF-8"
 # ---- PART ONE ------
 # Configure SSH connectivity from 'deployment' - server104 to Target Hosts 
 
+# Comment/remove the following part if ceph-ansible has been installed first.
+#############################################################################
+
 echo 'run-kolla.sh: Cleaning directory /home/vagrant/.ssh/'
 rm -f /home/vagrant/.ssh/known_hosts
 rm -f /home/vagrant/.ssh/id_rsa
@@ -14,6 +17,8 @@ rm -f /home/vagrant/.ssh/id_rsa.pub
 
 echo 'run-kolla.sh: Running ssh-keygen -t rsa'
 ssh-keygen -q -t rsa -N "" -f /home/vagrant/.ssh/id_rsa
+
+#############################################################################
 
 echo 'run-kolla.sh: Install sshpass'
 sudo apt-get install sshpass -y
